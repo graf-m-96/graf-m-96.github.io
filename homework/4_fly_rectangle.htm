@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Отскакивающие прямоугольники</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+        <script>
+            var k = 0;
+            function generate(countRectangles){
+                for (var i = 0; i < countRectangles; i++) {
+                    var rectangle = document.createElement("div");
+                    var maxSize = 100;
+                    var minSize = 50;
+                    rectangle.style.width = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize + 'px';
+                    rectangle.style.height = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize + 'px';
+                    rectangle.style.position = "absolute";
+                    var minScreenX = 640;
+                    var minScreenY = 480;
+                    rectangle.style.top = Math.floor(Math.random() * minScreenY) + 'px';
+                    rectangle.style.left = Math.floor(Math.random() * minScreenX) + 'px';
+                    rectangle.style.backgroundColor = "rgb(" + Math.round(256 * Math.random()) + "," + Math.round(256*Math.random()) + "," + Math.round(256 * Math.random()) + ")";
+                    document.body.appendChild(rectangle);
+                    var factorForXMovement = (Math.random() >= 0.5) ? 1 : -1;
+                    var factorForYMovement = (Math.random() >= 0.5) ? 1 : -1;
+                    var maxSpeed = 40;
+                    var minSpeed = 20;
+                    var speedForX = Math.floor(Math.random() * (maxSpeed - minSpeed + 1)) + minSpeed;
+                    var speedForY = Math.floor(Math.random() * (maxSpeed - minSpeed + 1)) + minSpeed;
+                    var width = parseInt(rectangle.style.width.substr(0, rectangle.style.width.length - 2));
+                    var height = parseInt(rectangle.style.height.substr(0, rectangle.style.height.length - 2));
+                    setTimeout(launchToRlyRectangle, 100, rectangle, factorForXMovement, factorForYMovement, speedForX, speedForY, width, height);
+                }
+            };
+
+            function launchToRlyRectangle(rectangle, factorForXMovement, factorForYMovement, speedForX, speedForY, width, height) {
+                // for x
+                var xLeft = parseInt(rectangle.style.left.substr(0, rectangle.style.left.length - 2));
+                if (xLeft + width + speedForX * factorForXMovement > window.innerWidth) {
+                    factorForXMovement = -1 
+                } else if (xLeft + speedForX * factorForXMovement < 0) { 
+                    factorForXMovement = 1 
+                }
+                // for y
+                var yTop = parseInt(rectangle.style.top.substr(0, rectangle.style.top.length - 2));
+                if (yTop + height + speedForY * factorForYMovement > window.innerHeight) { 
+                    factorForYMovement = -1;
+                } else if (yTop + speedForY * factorForYMovement < 0) { 
+                    factorForYMovement = 1;
+                }
+                rectangle.style.left = xLeft + speedForX * factorForXMovement + 'px';
+                rectangle.style.top = yTop + speedForY * factorForYMovement + 'px';
+                setTimeout(launchToRlyRectangle, 100, rectangle, factorForXMovement, factorForYMovement, speedForX, speedForY, width, height);
+            }
+        </script>
+        <style>
+            body { margin: 0px }
+        </style>
+        </head>
+        <body style="position:fixed;overflow:hidden" onload="generate(10)">
+            <table><tr><td>1</td></tr>
+            </table>
+        </body>
+</html>

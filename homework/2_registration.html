@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Регистрация</title>
+		<style type="text/css">
+		</style>
+	</head>
+
+	<body style="margin: 0;">
+		<div style="text-align: center; font-size: 36px; text-decoration: underline;"> Регистрация на какие-то крутые соревнования</div>
+		<div style="font-size: 30px;">
+			<form name="test" method="post" action="input1.php">
+				<p><b>Ваша фамилия:</b><br>
+					<input type="text" size="20">
+				</p>
+
+				<p><b>Ваше имя:</b><br>
+					<input type="text" size="20">
+				</p>
+
+				<p><b>Ваше отчество:</b><br>
+					<input type="text" size="20">
+				</p>
+
+				<p><b>Аватарка:</b><br>
+					<input type="file">
+				</p>
+
+				<p><b>Ваша почта:</b><br>
+					<input type="text" size="25">
+				</p>
+
+				<p><b>Пароль к данному аккаунту:</b><br>
+					<input type="password" size="25">
+				</p>
+
+				<p><b>Адрес своего сайт (если есть):</b><br>
+					<input type="text" value="http" size="25">
+				</p>
+
+				<p><b>Пол:</b><br>
+					<input type="radio" name="sex" value="woman"> Женский<br>
+					<input type="radio" name="sex" value="man"> Мужской<br>
+				</p>
+				
+
+				<p><b>Дата рождения:</b><br>
+					<input type="text">
+				</p>
+
+				<p><b>Блюдо какой кухни хотите получить на банкете:</b><br>
+					<input type="radio" name="food" value="russia"> Русская<br>
+					<input type="radio" name="food" value="exotic"> Экзотическая<br>
+				</p>
+
+				<p><b>В каких олимпиадах хотите поучаствовать:</b><br>
+					<input type="checkbox"> ACM/ICPC<br>
+					<input type="checkbox"> RuCTF<br>
+				</p>
+
+
+				<p>О себе<br>
+					<textarea name="comment" cols="40" rows="3"></textarea>
+				</p>
+
+				<p>
+					<input type="reset" value="Отправить (на самом деле, он тоже просто стирает)">
+					<input type="reset" value="Очистить">
+				</p>
+
+			 </form>
+		 </div>
+	</body>
+</html>
