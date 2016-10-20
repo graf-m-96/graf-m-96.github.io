@@ -21,13 +21,13 @@
                     document.body.appendChild(rectangle);
                     var factorForXMovement = (Math.random() >= 0.5) ? 1 : -1;
                     var factorForYMovement = (Math.random() >= 0.5) ? 1 : -1;
-                    var maxSpeed = 40;
-                    var minSpeed = 20;
+                    var maxSpeed = 10;
+                    var minSpeed = 5;
                     var speedForX = Math.floor(Math.random() * (maxSpeed - minSpeed + 1)) + minSpeed;
                     var speedForY = Math.floor(Math.random() * (maxSpeed - minSpeed + 1)) + minSpeed;
                     var width = parseInt(rectangle.style.width.substr(0, rectangle.style.width.length - 2));
                     var height = parseInt(rectangle.style.height.substr(0, rectangle.style.height.length - 2));
-                    setTimeout(launchToRlyRectangle, 100, rectangle, factorForXMovement, factorForYMovement, speedForX, speedForY, width, height);
+                    setTimeout(launchToRlyRectangle, 20, rectangle, factorForXMovement, factorForYMovement, speedForX, speedForY, width, height);
                 }
             };
 
@@ -48,7 +48,7 @@
                 }
                 rectangle.style.left = xLeft + speedForX * factorForXMovement + 'px';
                 rectangle.style.top = yTop + speedForY * factorForYMovement + 'px';
-                setTimeout(launchToRlyRectangle, 100, rectangle, factorForXMovement, factorForYMovement, speedForX, speedForY, width, height);
+                setTimeout(launchToRlyRectangle, 20, rectangle, factorForXMovement, factorForYMovement, speedForX, speedForY, width, height);
             }
         </script>
         <style>
