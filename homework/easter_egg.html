@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru" onkeypress="checkMessage(event)">
+<head>
+    <meta charset="utf-8">
+    <title>Пасхальные яйца</title>
+    <script>
+        var currentMessage = '';
+        var interestingWords = ['сети', 'js', 'javascript', 'html', 'css', 'классный', 'классные'];
+        var MAX_SIZE_INTERESTING_WORD = 0;
+        for (var i = 0; i < interestingWords.length; i++) {
+            if (MAX_SIZE_INTERESTING_WORD < interestingWords[i].length) {
+                MAX_SIZE_INTERESTING_WORD = interestingWords[i].length;
+            }
+        }
+
+
+        function checkMessage(event) {
+            currentMessage += String.fromCharCode(event.charCode);
+            for (var i = 0; i < interestingWords.length; i++) {
+                if (currentMessage.indexOf(interestingWords[i]) !== -1) {
+                    alert(interestingWords[i]);
+                    currentMessage = '';
+                }
+            }
+            if (currentMessage.length > MAX_SIZE_INTERESTING_WORD * 2) {
+                currentMessage = currentMessage.slice(parseInt(currentMessage.length / 2));
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Необычный сайт</h1>
+    <p>Где-то на этом сайте сокрыто пасхальные яйца</p>
+    <p>Найди их!</p>
+</body>
+</html>
