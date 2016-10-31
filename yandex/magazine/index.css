@@ -1,0 +1,173 @@
+.column_small
+{
+    display: inline-block;
+    width: 22%;
+    border-right: 1px solid;
+    vertical-align: top;
+}
+
+.column_big
+{
+    display: inline-block;
+    width: 32%;
+    border-right: 1px solid;
+}
+
+.text_from_right
+{
+    display: inline-block;
+    text-align: right;
+    width: 29%;
+    font-family: 'MV BOLI', 'COMIC SANS MS', sans-serif;
+    font-weight: 600;
+}
+
+.text_on_center
+{
+    display: inline-block;
+    text-align: center;
+    width: 70%;
+    font-family: 'MV BOLI', 'COMIC SANS MS', sans-serif;
+    font-weight: 600;
+}
+
+.about_magazine
+{
+    border-top: 5px double grey;
+    border-bottom: 5px double grey;
+    margin-bottom: 10px;
+}
+
+.article_title
+{
+    text-align: center;
+    font-weight: 600;
+}
+
+.article_text
+{
+    font-size: 14px;
+    /*word-break: break-all; все слова переносит рандомным образом(некрасиво)*/
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    /*а chrome и opera не поддерживают нормальный перенос :(*/
+}
+
+div.vertical_text
+{
+    float: left;
+    margin: 0 10px 10px 0;
+    -webkit-writing-mode: vertical-rl;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+h1
+{
+    font-size: 36px;
+    font-weight: 900;
+    font-family: Tahoma, sans-serif;
+    text-align: center;
+}
+
+p:first-child:first-letter
+{
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+table
+{
+    border-collapse: collapse;
+    border: 2px solid;
+    text-align: center;
+    margin: auto;
+}
+
+th
+{
+    text-align: left;
+    background: #ccc;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+td
+{
+    padding: 5px;
+    border: 1px solid black;
+}
+
+body
+{
+    background-image: url(picture/paper.jpg);
+}
+
+figure
+{
+    float: left;
+    border: 1px solid #333;
+    padding: 3px;
+    margin: 0 10px 0 5px;
+    background: #f0f0f0;
+}
+
+figcaption
+{
+    font-size: small;
+    margin: 0 auto 5px;
+}
+
+img
+{
+    width: 100%;
+}
+
+hr
+{
+    border: none; /* Убираем границу для браузера Firefox */
+    color: black; /* Цвет линии для остальных браузеров */
+    background-color: black; /* Цвет линии для браузера Firefox и Opera */
+    height: 2px;
+}
+
+hr.part
+{
+    width: 30%;
+}
+
+hr.full
+{
+    width: 100%;
+}
+
+ol
+{
+    padding: 0;
+    margin-left: 20px;
+}
+
+.to-be-changed
+{
+    color: black;
+}
+
+input[name='font']:checked ~ .to-be-changed
+{
+    font-family: Arial, vserif;
+}
+
+input[name='size']:checked ~ .to-be-changed
+{
+    font-size: 120%;
+}
+
+input[name='background']:checked ~ .to-be-changed
+{
+    background: black;
+    color: white;
+}
