@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>Gallery via jquery</title>
+    <script type="text/javascript" src="http://yandex.st/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+//            Начальное значение - это первая картинка
+            $("h1").append('<span>&#160;(Black)</span>');
+
+            $(".small a").click(function(){
+                var largePath = $(this).attr("href");
+                var largeAlt = $(this).attr("title");
+                $("#largeImg").attr({ src: largePath, alt: largeAlt });
+                $("h1 span").html(" (" + largeAlt + ")");
+                return false;
+            });
+        });
+    </script>
+    <style>
+        #largeImg {
+            height: 400px;
+        }
+        .small img {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gallery Linux</h1>
+    <!-- http://oboi-dlja-stola.ru/cat/11/linux/newest-1 -->
+    <p>
+        <img id="largeImg" src="big\black.jpg" title="Black" alt="Large image" />
+    </p>
+    <p class="small">
+        <a href="big\black.jpg" title="Black"><img src="small\black.jpg" /></a>
+        <a href="big\star.jpg" title="Star"><img src="small\star.jpg" /></a>
+        <a href="big\turbo.jpg" title="Turbo"><img src="small\turbo.jpg" /></a>
+    </p>
+</body>
+</html>
