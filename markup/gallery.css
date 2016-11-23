@@ -1,0 +1,7 @@
+.picture_in_album
+{
+    height: 200px;
+    margin: 10px;
+    border: 3px solid grey;
+    border-radius: 15px;
+}

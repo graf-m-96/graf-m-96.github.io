@@ -1,0 +1,49 @@
+header
+{
+    height: 30px;
+    color: #fff;
+    background: mediumorchid;
+    padding-left: 10px;
+    border-bottom: 5px solid black;
+}
+
+header a
+{
+    color: white;
+    padding-right: 20px;
+}
+
+a.active
+{
+    color: orange;
+    text-decoration: none;
+}
+
+body
+{
+    margin: 0;
+    background: papayawhip;
+}
+
+h1
+{
+    text-align: center;
+}
+
+footer
+{
+    position: fixed;
+    left: 0; bottom: 0;
+    padding: 20px;
+    color: #fff;
+    width: 100%;
+    background: mediumorchid;
+    border-top: 5px solid black;
+    margin-top: 20px;
+}
+
+footer div
+{
+    text-align: right;
+    padding-right: 30px;
+}
