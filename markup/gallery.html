@@ -1,70 +1,341 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Галерея</title>
-    <link rel="shortcut icon" href="pictures/favicon.png" type="image/x-icon">
-    <link href="common.css" rel="stylesheet">
-    <link href="gallery.css" rel="stylesheet">
-</head>
-<body>
-<main>
-    <header>
-        <a href="index.html">Главная</a>
-        <a class="active" href="gallery.html">Галерея</a>
-        <a href="links.html">Контакты</a>
-    </header>
-    <h1>Соревнования по ACM</h1>
-    <ul>
-        <li>
-            <h2>Среди новичков (весна 2016 год)</h2>
-            <img class="picture_in_album" src="pictures/olympiad/among_beginners/1.jpg"
-                 alt="Фотография с турнира новичков №1"/>
-            <img class="picture_in_album" src="pictures/olympiad/among_beginners/2.jpg"
-                 alt="Фотография с турнира новичков №2"/>
-            <img class="picture_in_album" src="pictures/olympiad/among_beginners/3.jpg"
-                 alt="Фотография с турнира новичков №3"/>
-            <img class="picture_in_album" src="pictures/olympiad/among_beginners/4.jpg"
-                 alt="Фотография с турнира новичков №4"/>
-            <img class="picture_in_album" src="pictures/olympiad/among_beginners/5.jpg"
-                 alt="5"/>
-            <img class="picture_in_album" src="pictures/olympiad/among_beginners/6.jpg"
-                 alt="6"/>
-            <hr>
-        </li>
-        <li>
-            <h2>Отбор на четвертьфинал (осень 2016 год)</h2>
-            <img class="picture_in_album" src="pictures/olympiad/selection_on_quarterfinal/1.jpg"
-                 alt="Фотография с отбора на четвертьфинал №1"/>
-            <img class="picture_in_album" src="pictures/olympiad/selection_on_quarterfinal/2.jpg"
-                 alt="Фотография с отбора на четвертьфинал №2"/>
-            <img class="picture_in_album" src="pictures/olympiad/selection_on_quarterfinal/3.jpg"
-                 alt="Фотография с отбора на четвертьфинал №3"/>
-            <img class="picture_in_album" src="pictures/olympiad/selection_on_quarterfinal/4.jpg"
-                 alt="Фотография с отбора на четвертьфинал №4"/>
-            <img class="picture_in_album" src="pictures/olympiad/selection_on_quarterfinal/5.jpg"
-                 alt="Фотография с отбора на четвертьфинал №5"/>
-            <img class="picture_in_album" src="pictures/olympiad/selection_on_quarterfinal/6.jpg"
-                 alt="Фотография с отбора на четвертьфинал №6"/>
-            <img class="picture_in_album" src="pictures/olympiad/selection_on_quarterfinal/7.jpg"
-                 alt="Фотография с отбора на четвертьфинал №7"/>
-            <hr>
-        </li>
-        <li>
-            <h2>Четвертьфинал (осень 2016 год)</h2>
-            <img class="picture_in_album" src="pictures/olympiad/quarterfinal/1.jpg"
-                 alt="Фотография с четвертьфинанала №1"/>
-            <img class="picture_in_album" src="pictures/olympiad/quarterfinal/2.jpg"
-                 alt="Фотография с четвертьфинанала №2"/>
-            <img class="picture_in_album" src="pictures/olympiad/quarterfinal/3.jpg"
-                 alt="Фотография с четвертьфинанала №3"/>
-            <img class="picture_in_album" src="pictures/olympiad/quarterfinal/4.jpg"
-                 alt="Фотография с четвертьфинанала №4"/>
-        </li>
-    </ul>
-</main>
-<footer style="position: relative">
-    <div>© Мамонов А.А. 2016 год</div>
-</footer>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Галерея</title>
+        <link rel="shortcut icon" href="pictures/favicon.png" type="image/x-icon">
+        <link href="common.css" rel="stylesheet">
+        <link href="gallery.css" rel="stylesheet">
+        <script type="text/javascript" src="gallery.js"></script>
+        <script>
+            function disableHotkey() {
+                document.onhelp = function() {
+                    return (false);
+                };
+                window.onhelp = function() {
+                    return (false);
+                };
+            }
+        </script>
+    </head>
+    <body onload="setStartPictureFromCookies(); watchForHistory(); disableHotkey()" onkeydown=keyDown(event)>
+        <div id="dark_background"></div>
+        <div id="image_with_cross">
+            <img id="big_picture" src="pictures/for_starting/стартовая.png" alt="Картинка на весь экран">
+            <img id="close_picture" src="pictures/close.png" alt="Крестик"
+                 onclick="changeVisibilityBigPicture('none')">
+        </div>
+        <div id="help_window" style="overflow: auto">
+            <img id="close_help" src="pictures/close.png" alt="Крестик"
+                 onclick="changeVisibilityHelp('none')">
+            <div style="text-align: center; font-weight: 600; font-size: 32px">
+                Помощь
+            </div>
+            <br>
+            <div style="margin: 0 10px 0 10px">
+                Пс, Леонид Сергеевич. Слышал, вы любите тестировать всякие кнопочки.
+                <br>
+                Специально для этого я реализовал обработчики на следующие кнопки:
+                <ul>
+                    <li>
+                        <img class="button" src="pictures/button/f1.jpg" alt="Кнопка f1">
+                        <div>
+                            - Для вызова окна помощи
+                        </div>
+                    </li>
+                    <li>
+                        <img class="button" src="pictures/button/стрелка_влево.png" alt="Стелка влево">
+                        <div>
+                            - Для перелистывания фотографий влево (работает только в режиме просмотра
+                            фотографий)
+                        </div>
+                    </li>
+                    <li>
+                        <img class="button" src="pictures/button/стрелка_вправо.png" alt="Стрелка вправо">
+                        <div>
+                            - Для перелистывания фотографий вправо (работает только в режиме просмотра
+                            фотографий)
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrapper">
+            <header>
+                <a href="index.html">Главная</a>
+                <a class="active" href="gallery.html">Галерея</a>
+                <a href="links.html">Контакты</a>
+            </header>
+            <main>
+                <h1>Стартовая картинка</h1>
+                <div class="clearfix">
+                    <div class="loading_indicator">
+                        <img src="pictures/for_starting/стартовая.png"
+                             alt="Фотография для галереи"
+                             class="picture_in_album"
+                             onclick="changeVisibilityBigPicture('block', this)"
+                             onload="loadNextImages(this); this.style.visibility='visible'"
+                             style="width: 90%; visibility: hidden"
+                             id="start_picture">
+                    </div>
+                    <h1>Возможные стартовые картинки</h1>
+                    <div class="picture_for_starting loading_indicator">
+                        <img src="pictures/for_starting/lichess.jpg"
+                         alt="Фотография для галереи"
+                         class="picture_min_size picture_in_album"
+                         onclick="changeVisibilityBigPicture('block', this)"
+                         onload="loadNextImages(this); this.style.visibility='visible'"
+                         style="visibility: hidden"
+                         id="for_starting_1">
+                        <button onclick="changeStartPicture(document.getElementById('for_starting_1'))"
+                                class="button_for_starting">
+                            Сделать стартовой
+                        </button>
+                    </div>
+                    <div class="picture_for_starting loading_indicator">
+                        <img src="pictures/for_starting/people_vs_kuka.jpg"
+                             alt="Фотография для галереи"
+                             class="picture_min_size picture_in_album"
+                             onclick="changeVisibilityBigPicture('block', this)"
+                             onload="loadNextImages(this); this.style.visibility='visible'"
+                             style="visibility: hidden"
+                            id="for_starting_2">
+                        <button onclick="changeStartPicture(document.getElementById('for_starting_2'))"
+                                class="button_for_starting">
+                            Сделать стартовой
+                        </button>
+                    </div>
+                    <div class="picture_for_starting loading_indicator">
+                        <img src="pictures/for_starting/emily.jpg"
+                             alt="Фотография для галереи"
+                             class="picture_min_size picture_in_album"
+                             onclick="changeVisibilityBigPicture('block', this)"
+                             onload="loadNextImages(this); this.style.visibility='visible'"
+                             style="visibility: hidden"
+                             id="for_starting_3">
+                        <button onclick="changeStartPicture(document.getElementById('for_starting_3'))"
+                                class="button_for_starting">
+                            Сделать стартовой
+                        </button>
+                    </div>
+                    <div class="picture_for_starting loading_indicator">
+                        <img src="pictures/for_starting/music.jpg"
+                             alt="Фотография для галереи"
+                             class="picture_min_size picture_in_album"
+                             onclick="changeVisibilityBigPicture('block', this)"
+                             onload="loadNextImages(this); this.style.visibility='visible'"
+                             style="visibility: hidden"
+                             id="for_starting_4">
+                        <button onclick="changeStartPicture(document.getElementById('for_starting_4'))"
+                                class="button_for_starting">
+                            Сделать стартовой
+                        </button>
+                    </div>
+                    <div class="picture_for_starting loading_indicator">
+                        <img src="pictures/for_starting/ферма.png"
+                             alt="Фотография для галереи"
+                             class="picture_min_size picture_in_album"
+                             onclick="changeVisibilityBigPicture('block', this)"
+                             onload="loadNextImages(this); this.style.visibility='visible'"
+                             style="visibility: hidden"
+                             id="for_starting_5">
+                        <button onclick="changeStartPicture(document.getElementById('for_starting_5'))"
+                                class="button_for_starting">
+                            Сделать стартовой
+                        </button>
+                    </div>
+                    <div class="picture_for_starting loading_indicator">
+                        <img src="pictures/for_starting/стартовая.png"
+                             alt="Фотография для галереи"
+                             class="picture_min_size picture_in_album"
+                             onclick="changeVisibilityBigPicture('block', this)"
+                             onload="loadNextImages(this); this.style.visibility='visible'"
+                             style="visibility: hidden"
+                             id="for_starting_6">
+                        <button onclick="changeStartPicture(document.getElementById('for_starting_6'))"
+                                class="button_for_starting">
+                            Сделать стартовой
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <h1>Соревнования по ACM</h1>
+                <ul>
+                    <li>
+                        <h2>Среди новичков (весна 2016 год)</h2>
+                        <div class="clearfix">
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/among_beginners/1.jpg"
+                                     alt="Фотография с турнира новичков №1"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="beginners_1"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/among_beginners/2.jpg"
+                                     alt="Фотография с турнира новичков №2"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="beginners_2"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/among_beginners/3.jpg"
+                                     alt="Фотография с турнира новичков №3"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="beginners_3"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/among_beginners/4.jpg"
+                                     alt="Фотография с турнира новичков №4"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="beginners_4"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/among_beginners/5.jpg"
+                                     alt="Фотография с турнира новичков №5"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="beginners_5"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/among_beginners/6.jpg"
+                                     alt="Фотография с турнира новичков №6"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="beginners_6"/>
+                            </div>
+                        </div>
+                        <hr>
+                    </li>
+                    <li>
+                        <h2>Отбор на четвертьфинал (осень 2016 год)</h2>
+                        <div class="clearfix">
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/selection_on_quarterfinal/1.jpg"
+                                     alt="Фотография с отбора на четвертьфинал №1"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="selection_on_quarterfinal_1"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/selection_on_quarterfinal/2.jpg"
+                                     alt="Фотография с отбора на четвертьфинал №2"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="selection_on_quarterfinal_2"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/selection_on_quarterfinal/3.jpg"
+                                     alt="Фотография с отбора на четвертьфинал №3"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="selection_on_quarterfinal_3"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/selection_on_quarterfinal/4.jpg"
+                                     alt="Фотография с отбора на четвертьфинал №4"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="selection_on_quarterfinal_4"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/selection_on_quarterfinal/5.jpg"
+                                     alt="Фотография с отбора на четвертьфинал №5"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="selection_on_quarterfinal_5"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/selection_on_quarterfinal/6.jpg"
+                                     alt="Фотография с отбора на четвертьфинал №6"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="selection_on_quarterfinal_6"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/selection_on_quarterfinal/7.jpg"
+                                     alt="Фотография с отбора на четвертьфинал №7"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="selection_on_quarterfinal_7"/>
+                            </div>
+                        </div>
+                        <hr>
+                    </li>
+                    <li>
+                        <h2>Четвертьфинал (осень 2016 год)</h2>
+                        <div class="clearfix">
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/quarterfinal/1.jpg"
+                                     alt="Фотография с четвертьфинанала №1"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="quarterfinal_1"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/quarterfinal/2.jpg"
+                                     alt="Фотография с четвертьфинанала №2"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="quarterfinal_2"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/quarterfinal/3.jpg"
+                                     alt="Фотография с четвертьфинанала №3"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="quarterfinal_3"/>
+                            </div>
+                            <div class="loading_indicator">
+                                <img class="picture_in_album part_of_row"
+                                     src="pictures/olympiad/quarterfinal/4.jpg"
+                                     alt="Фотография с четвертьфинанала №4"
+                                     onclick="changeVisibilityBigPicture('block', this)"
+                                     onload="loadNextImages(this); this.style.visibility='visible'"
+                                     style="visibility: hidden"
+                                     id="quarterfinal_4"/>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </main>
+            <div class="footer_on_gallery">
+                <div>© Мамонов А.А. 2016 год</div>
+            </div>
+        </div>
+    </body>
 </html>

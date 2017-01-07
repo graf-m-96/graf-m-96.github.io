@@ -1,7 +1,157 @@
 .picture_in_album
 {
-    height: 200px;
     margin: 10px;
     border: 3px solid grey;
     border-radius: 15px;
+    cursor: pointer;
+}
+
+.picture_min_size
+{
+    width: 360px;
+}
+
+.picture_for_starting
+{
+    display: inline-block;
+    width: 360px;
+    padding: 30px
+}
+
+.button_for_starting
+{
+    display: block;
+    width: 360px;
+    height: 30px;
+}
+
+/* Убираем обтекание */
+.clearfix:after
+{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media all and ( max-width: 720px )
+{
+  .part_of_row {
+    float: none;
+    width: 90%;
+  }
+}
+
+@media all and ( min-width: 721px ) and ( max-width: 1081px )
+{
+  .part_of_row {
+    float: left;
+    width: 45%;
+  }
+}
+
+@media all and ( min-width: 1081px )
+{
+  .part_of_row {
+    float: left;
+    width: 30%;
+  }
+}
+
+/* help */
+#dark_background
+{
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(1, 1, 1, 0.725);
+    z-index: 100;
+    overflow: auto;
+}
+
+#help_window
+{
+    width: 360px;
+    height: 80%;
+    margin: 20px auto;
+    display: none;
+    background: #fff;
+    z-index: 200;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#close_help
+{
+    width: 30px;
+    margin-left: 305px;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+img.button
+{
+    height: 50px;
+    vertical-align: middle;
+}
+
+
+/* Вывод большой картинки */
+#big_picture
+{
+    border: 3px solid grey;
+    border-radius: 15px;
+    height: 90%;
+    margin: 20px auto;
+    display: block;
+    background: #fff;
+    z-index: 300;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+#image_with_cross
+{
+    display: none;
+}
+
+
+#close_picture
+{
+    width: 50px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 400;
+}
+
+ div.loading_indicator
+ {
+     background: url(pictures/loading.gif) no-repeat center;
+ }
+
+ .footer_on_gallery
+ {
+     position: relative;
+     height: 65px;
+     color: #fff;
+     width: 100%;
+     background: rgb(37, 55, 101);
+     border-top: 5px solid black;
+ }
+
+.footer_on_gallery div
+{
+    text-align: right;
+    padding-right: 30px;
 }
