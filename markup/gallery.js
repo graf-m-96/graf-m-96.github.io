@@ -139,7 +139,6 @@ function loadNextImages(element) {
 function watchForHistory() {
     closeAllWindows();
     var indexQuestion = window.location.href.lastIndexOf('?');
-
     if (indexQuestion !== -1) {
         var location = window.location.href.substring(indexQuestion + 1,
                                                       window.location.href.length);
@@ -158,6 +157,8 @@ function watchForHistory() {
                 }
                 break;
         }
+    } else {
+        closeAllWindows();
     }
     window.addEventListener('popstate', function(e) {
         var indexQuestion = window.location.href.lastIndexOf('?');
@@ -179,6 +180,8 @@ function watchForHistory() {
                     }
                     break;
             }
+        } else {
+            closeAllWindows();
         }
     });
 }
