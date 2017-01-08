@@ -10,7 +10,7 @@
     <body>
         <div class="wrapper">
             <header>
-                <a class="active" href="index.html">Главная</a>
+                <a class="active" href="http://localhost:8080/">Главная</a>
                 <a href="gallery.html">Галерея</a>
                 <a href="links.html">Контакты</a>
             </header>
@@ -43,6 +43,17 @@
                     </div>
                     <div style="clear: both;"></div>    <!-- Убираем обтекание, т.е появляется отступ -->
                 </div>
+                <h2>Графический счётчик посещений</h2>
+                <table id="counter_visits">
+                    <tr>
+                        <td>
+                            Количество посещений
+                        </td>
+                        <td>
+                            {{number}}
+                        </td>
+                    </tr>
+                </table>
             </main>
             <div class="footer">
                 <div>© Мамонов А.А. 2016 год</div>

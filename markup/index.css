@@ -47,3 +47,32 @@
 {
     font-size: 24px;
 }
+
+#counter_visits
+{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+
+td:first-child
+{
+    background: #AFCDE7;
+    color: black;
+    padding: 10px 20px;
+}
+
+td
+{
+    width: 100px;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: black;
+}
+
+td
+{
+    background: #D8E6F3;
+}

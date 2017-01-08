@@ -136,8 +136,8 @@ function loadNextImages(element) {
 }
 
 
-function watchForHistory() {
-    closeAllWindows();
+
+function checkHistory() {
     var indexQuestion = window.location.href.lastIndexOf('?');
     if (indexQuestion !== -1) {
         var location = window.location.href.substring(indexQuestion + 1,
@@ -160,28 +160,58 @@ function watchForHistory() {
     } else {
         closeAllWindows();
     }
+}
+
+
+function watchForHistory() {
+    closeAllWindows();
+    checkHistory();
     window.addEventListener('popstate', function(e) {
-        var indexQuestion = window.location.href.lastIndexOf('?');
-        if (indexQuestion !== -1) {
-            var location = window.location.href.substring(indexQuestion + 1,
-                                                          window.location.href.length);
-            switch (location) {
-                case 'help':
-                    closeAllWindows();
-                    changeVisibilityHelp('block');
-                    break;
-                case '':
-                    closeAllWindows();
-                    break;
-                default:
-                    closeAllWindows();
-                    if (document.getElementById(location) !== null) {
-                        loadImage(document.getElementById(location), true);
-                    }
-                    break;
-            }
-        } else {
-            closeAllWindows();
-        }
+        checkHistory();
     });
+}
+
+
+function textAreaKeyUp(event)
+{
+	if(event.preventDefault)
+	{
+		event.preventDefault();
+		event.stopImmediatePropagation();
+	}
+	else
+	{
+		event.returnValue = false;
+		event.cancelBubble = true;
+	}
+}
+
+
+function getLikes(namePicture)
+{
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState != 4)
+            return;
+        if (xmlhttp.status == 200)
+            document.getElementById('countLike').innerHTML = xmlhttp.responseText;
+     };
+	xmlhttp.open("GET", "http://localhost:8080/getLikes?name=" + namePicture, true);
+	xmlhttp.send();
+}
+
+
+function addLike(event)
+{
+    var fullPathToPicture = document.getElementById(ID_CURRENT_PHOTO).src;
+	var namePicture = fullPathToPicture.substring(fullPathToPicture.lastIndexOf('/') + 1, fullPathToPicture.length);
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState != 4)
+            return;
+        if (xmlhttp.status == 200)
+            getLikes(namePicture);
+    };
+	xmlhttp.open("GET", "http://localhost:8080/addLike?name=" + namePicture, true);
+	xmlhttp.send();
 }
