@@ -26,20 +26,20 @@
                  onclick="changeVisibilityBigPicture('none')">
             <div id="conLike">
                 <img id="imgLike" src="pictures/like.png" onclick="addLike(event)" alt="">
-                <div id="countLike">
+                <div id="countLike"></div>
             </div>
 
 
-            <!--<div id="conTextPictureBigDisplay"></div>-->
+            <div id="conTextPictureBigDisplay"></div>
             <div id="conForm">
-              <form action="action" method="post">
-                <textarea id="commentInput" name="comment" placeholder="Комментарий будет сокращен до 500 символов"
-                          onkeyup="textAreaKeyUp(event)"></textarea>
-                <input type="submit" id="buttonCommentPlacement" value="Отправить" onclick="sendComment(event)">
-              </form>
+                <form action="action" method="post">
+                    <textarea id="commentInput" name="comment" placeholder="Комментарий будет сокращен до 500 символов"
+                          onkeyup="textAreaKeyUp(event)">
+                    </textarea>
+                    <input type="submit" id="buttonCommentPlacement" value="Отправить" onclick="sendComment(event)">
+                </form>
             </div>
 
-    </div>
         </div>
         <div id="help_window" style="overflow: auto">
             <img id="close_help" src="pictures/close.png" alt="Крестик"
@@ -182,7 +182,7 @@
                         <div class="clearfix">
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/among_beginners/1.jpg"
+                                     src="pictures/olympiad/among_beginners/among_beginners_1.jpg"
                                      alt="Фотография с турнира новичков №1"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -191,7 +191,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/among_beginners/2.jpg"
+                                     src="pictures/olympiad/among_beginners/among_beginners_2.jpg"
                                      alt="Фотография с турнира новичков №2"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -200,7 +200,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/among_beginners/3.jpg"
+                                     src="pictures/olympiad/among_beginners/among_beginners_3.jpg"
                                      alt="Фотография с турнира новичков №3"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -209,7 +209,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/among_beginners/4.jpg"
+                                     src="pictures/olympiad/among_beginners/among_beginners_4.jpg"
                                      alt="Фотография с турнира новичков №4"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -218,7 +218,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/among_beginners/5.jpg"
+                                     src="pictures/olympiad/among_beginners/among_beginners_5.jpg"
                                      alt="Фотография с турнира новичков №5"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -227,7 +227,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/among_beginners/6.jpg"
+                                     src="pictures/olympiad/among_beginners/among_beginners_6.jpg"
                                      alt="Фотография с турнира новичков №6"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -242,7 +242,7 @@
                         <div class="clearfix">
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/selection_on_quarterfinal/1.jpg"
+                                     src="pictures/olympiad/selection_on_quarterfinal/selection_on_quarterfinal_1.jpg"
                                      alt="Фотография с отбора на четвертьфинал №1"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -251,7 +251,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/selection_on_quarterfinal/2.jpg"
+                                     src="pictures/olympiad/selection_on_quarterfinal/selection_on_quarterfinal_2.jpg"
                                      alt="Фотография с отбора на четвертьфинал №2"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -260,7 +260,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/selection_on_quarterfinal/3.jpg"
+                                     src="pictures/olympiad/selection_on_quarterfinal/selection_on_quarterfinal_3.jpg"
                                      alt="Фотография с отбора на четвертьфинал №3"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -269,7 +269,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/selection_on_quarterfinal/4.jpg"
+                                     src="pictures/olympiad/selection_on_quarterfinal/selection_on_quarterfinal_4.jpg"
                                      alt="Фотография с отбора на четвертьфинал №4"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -278,7 +278,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/selection_on_quarterfinal/5.jpg"
+                                     src="pictures/olympiad/selection_on_quarterfinal/selection_on_quarterfinal_5.jpg"
                                      alt="Фотография с отбора на четвертьфинал №5"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -287,7 +287,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/selection_on_quarterfinal/6.jpg"
+                                     src="pictures/olympiad/selection_on_quarterfinal/selection_on_quarterfinal_6.jpg"
                                      alt="Фотография с отбора на четвертьфинал №6"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -296,7 +296,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/selection_on_quarterfinal/7.jpg"
+                                     src="pictures/olympiad/selection_on_quarterfinal/selection_on_quarterfinal_7.jpg"
                                      alt="Фотография с отбора на четвертьфинал №7"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -311,7 +311,7 @@
                         <div class="clearfix">
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/quarterfinal/1.jpg"
+                                     src="pictures/olympiad/quarterfinal/quarterfinal_1.jpg"
                                      alt="Фотография с четвертьфинанала №1"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -320,7 +320,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/quarterfinal/2.jpg"
+                                     src="pictures/olympiad/quarterfinal/quarterfinal_2.jpg"
                                      alt="Фотография с четвертьфинанала №2"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -329,7 +329,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/quarterfinal/3.jpg"
+                                     src="pictures/olympiad/quarterfinal/quarterfinal_3.jpg"
                                      alt="Фотография с четвертьфинанала №3"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"
@@ -338,7 +338,7 @@
                             </div>
                             <div class="loading_indicator">
                                 <img class="picture_in_album part_of_row"
-                                     src="pictures/olympiad/quarterfinal/4.jpg"
+                                     src="pictures/olympiad/quarterfinal/quarterfinal_4.jpg"
                                      alt="Фотография с четвертьфинанала №4"
                                      onclick="changeVisibilityBigPicture('block', this)"
                                      onload="loadNextImages(this); this.style.visibility='visible'"

@@ -100,6 +100,10 @@ function changeVisibilityBigPicture(state, element, keepState) {
 
 
 function loadImage(element, keepState) {
+    var fullPathToPicture = element.src;
+	var namePicture = fullPathToPicture.substring(fullPathToPicture.lastIndexOf('/') + 1, fullPathToPicture.length);
+    getLikes(namePicture);
+    getComments(namePicture, true);
     document.getElementById('big_picture').src = element.src;
     document.getElementById('image_with_cross').style.display = 'block';
     document.getElementById('dark_background').style.display = 'block';
@@ -172,21 +176,6 @@ function watchForHistory() {
 }
 
 
-function textAreaKeyUp(event)
-{
-	if(event.preventDefault)
-	{
-		event.preventDefault();
-		event.stopImmediatePropagation();
-	}
-	else
-	{
-		event.returnValue = false;
-		event.cancelBubble = true;
-	}
-}
-
-
 function getLikes(namePicture)
 {
 	var xmlhttp = new XMLHttpRequest();
@@ -214,4 +203,58 @@ function addLike(event)
     };
 	xmlhttp.open("GET", "http://localhost:8080/addLike?name=" + namePicture, true);
 	xmlhttp.send();
+}
+
+
+
+function getComments(namePicture, scroll)
+{
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState != 4)
+                return;
+        if (xmlhttp.status == 200)
+        {
+            document.getElementById('conTextPictureBigDisplay').innerHTML = xmlhttp.responseText;
+            if (scroll)
+                document.getElementById('buttonCommentPlacement').scrollIntoView();
+        }
+    };
+	xmlhttp.open("GET", "http://localhost:8080/getComments?name=" + namePicture, true);
+	xmlhttp.send();
+}
+
+function sendComment(event)
+{
+    var fullPathToPicture = document.getElementById(ID_CURRENT_PHOTO).src;
+	var namePicture = fullPathToPicture.substring(fullPathToPicture.lastIndexOf('/') + 1, fullPathToPicture.length);
+	var formData = new FormData();
+	formData.append('comment', document.getElementById('commentInput').value);
+	formData.append(namePicture);
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("POST", "http://localhost:8080/addComment", true);
+	xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState != 4)
+            return;
+        if (xmlhttp.status == 200)
+            getComments(namePicture, true);
+    };
+	document.getElementById('commentInput').value = "";
+	xmlhttp.send(formData);
+	event.preventDefault();
+}
+
+
+function textAreaKeyUp(event)
+{
+	if(event.preventDefault)
+	{
+		event.preventDefault();
+		event.stopImmediatePropagation();
+	}
+	else
+	{
+		event.returnValue = false;
+		event.cancelBubble = true;
+	}
 }

@@ -16,7 +16,8 @@ def check():
     global STOP
     if STOP:
         tornado.ioloop.IOLoop.instance().stop()
-        if CONNECTION_WITH_DB: CONNECTION_WITH_DB.close()
+        if CONNECTION_WITH_DB:
+            CONNECTION_WITH_DB.close()
 
 
 class HandlerMain(tornado.web.RequestHandler):
@@ -49,17 +50,16 @@ class HandlerСommentsRequest(tornado.web.RequestHandler):
     def get(self):
         try:
             picture = self.get_argument('name')
-            if re.fullmatch(r'p\d+\.jpg', picture):
-                self.set_header('Cache-Control', 'no-cache')
-                cursor = CONNECTION_WITH_DB.cursor()
-                self.write(self.description_picture(cursor, picture))
-                self.flush()
-                cursor.execute('select Comment from Comments where Picture=? order by Time', (picture,))
-                for comment in cursor:  # не забываю про этот момент
-                    self.write(comment[0])
-                    yield tornado.gen.Task(self.flush)
-                self.write('</div>')
-                self.flush()
+            self.set_header('Cache-Control', 'no-cache')
+            cursor = CONNECTION_WITH_DB.cursor()
+            self.write(self.description_picture(cursor, picture))
+            self.flush()
+            cursor.execute('select Comment from Comments where Picture=? order by Time', (picture,))
+            for comment in cursor:
+                self.write(comment[0])
+                yield tornado.gen.Task(self.flush)
+            self.write('</div>')
+            self.flush()
         except Exception as error:
             traceback.print_exc()
             if isinstance(error, tornado.web.HTTPError):
@@ -68,8 +68,10 @@ class HandlerСommentsRequest(tornado.web.RequestHandler):
                 raise tornado.web.HTTPError(500)
         finally:
             self.finish()
-            try:cursor.close()
-            except NameError:pass
+            try:
+                cursor.close()
+            except NameError:
+                pass
 
     def description_picture(self, cursor, picture):
         cursor.execute('select Description from Descriptions where Picture=?', (picture,))
@@ -77,8 +79,7 @@ class HandlerСommentsRequest(tornado.web.RequestHandler):
         if isinstance(description, tuple):
             return description[0]
         else:
-            raise tornado.web.HTTPError(404)     # -- нет описания пикчи в базе
-                                               # -- обратить внимание на этот момент
+            raise tornado.web.HTTPError(404)
 
 
 class HandlerAddComment(tornado.web.RequestHandler):
@@ -89,7 +90,7 @@ class HandlerAddComment(tornado.web.RequestHandler):
             cursor = CONNECTION_WITH_DB.cursor()
             time_request = datetime.datetime.now()
             ip = self.request.remote_ip
-            if self.opportunity_to_comment(cursor, picture, comment, time_request): #добавить запись
+            if self.opportunity_to_comment(cursor, picture, comment, time_request):
                 with LOCK_TABLE_COMMENTS:
                     cursor.execute('insert into Comments values (?,?,?,?)', (picture, comment, time_request, ip))
                     CONNECTION_WITH_DB.commit()
@@ -105,7 +106,8 @@ class HandlerAddComment(tornado.web.RequestHandler):
     def get_comment(self):
         max_len_comment = 500
         comment = re.sub("&#", "", self.get_argument('comment')[:max_len_comment])
-        if len(comment) == 0: raise Exception
+        if len(comment) == 0:
+            raise Exception
         comment = re.sub("<", "&lt;", re.sub(">", "&gt;", comment))
         comment = re.sub(r'&lt;(img src="https?://[a-zA-Zа-яА-Я0-9\.~`!@#\$;%\^:&\?\*\(\)/\\_\-\+=]+")&gt;',
                            r'<\1 class="imgInComment" alt="image">', comment, flags=re.IGNORECASE)
@@ -150,10 +152,6 @@ class HandlerAddLike(tornado.web.RequestHandler):
         try:
             picture = self.get_argument('name')
             cursor = CONNECTION_WITH_DB.cursor()
-
-            # if not re.fullmatch(r'p\d+\.jpg', picture):
-            #   return
-
             ip = self.request.remote_ip
             cursor.execute('select * from Likes where Picture=? and Ip=?', (picture, ip))
             like_was = cursor.fetchone()
