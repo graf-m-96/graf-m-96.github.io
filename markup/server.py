@@ -3,8 +3,6 @@ import tornado.gen
 import tornado.ioloop
 import datetime
 import sqlite3
-import signal
-import os
 import re
 import traceback
 import threading
@@ -52,8 +50,6 @@ class HandlerСommentsRequest(tornado.web.RequestHandler):
             picture = self.get_argument('name')
             self.set_header('Cache-Control', 'no-cache')
             cursor = CONNECTION_WITH_DB.cursor()
-            self.write(self.description_picture(cursor, picture))
-            self.flush()
             cursor.execute('select Comment from Comments where Picture=? order by Time', (picture,))
             for comment in cursor:
                 self.write(comment[0])
@@ -72,14 +68,6 @@ class HandlerСommentsRequest(tornado.web.RequestHandler):
                 cursor.close()
             except NameError:
                 pass
-
-    def description_picture(self, cursor, picture):
-        cursor.execute('select Description from Descriptions where Picture=?', (picture,))
-        description = cursor.fetchone()
-        if isinstance(description, tuple):
-            return description[0]
-        else:
-            raise tornado.web.HTTPError(404)
 
 
 class HandlerAddComment(tornado.web.RequestHandler):
@@ -110,7 +98,7 @@ class HandlerAddComment(tornado.web.RequestHandler):
             raise Exception
         comment = re.sub("<", "&lt;", re.sub(">", "&gt;", comment))
         comment = re.sub(r'&lt;(img src="https?://[a-zA-Zа-яА-Я0-9\.~`!@#\$;%\^:&\?\*\(\)/\\_\-\+=]+")&gt;',
-                           r'<\1 class="imgInComment" alt="image">', comment, flags=re.IGNORECASE)
+                         r'<\1 class="imgInComment" alt="image">', comment, flags=re.IGNORECASE)
         comment = re.sub(r'&lt;b&gt;(.+)&lt;/b&gt;', r'<b>\1</b>', comment, flags=re.IGNORECASE)
         comment = re.sub(r'&lt;i&gt;(.+)&lt;/i&gt;', r'<i>\1</i>', comment, flags=re.IGNORECASE)
         return "<p>"+comment+"<hr></p>"
@@ -168,53 +156,52 @@ class HandlerAddLike(tornado.web.RequestHandler):
             self.finish()
 
 
-# class HandlerDownloadXLS(tornado.web.RequestHandler):
-# 	@tornado.web.asynchronous
-# 	@tornado.gen.engine
-# 	def get(self):
-# 		try:
-# 			self.set_header('Content-Type', 'application/excel')
-# 			self.set_header('Content-Disposition', 'attachment; filename="galeryDetails.xls"')
-# 			xls = self.xls()
-# 			chunk = 512000
-# 			data = xls.read(chunk)
-# 			while data:
-# 				self.write(data)
-# 				yield tornado.gen.Task(self.flush)
-# 				data = xls.read(chunk)
-# 			self.flush()
-# 		except Exception:
-# 			traceback.print_exc()
-# 		finally:
-# 			self.finish()
+class HandlerDownloadXLS(tornado.web.RequestHandler):
+    @tornado.web.asynchronous
+    @tornado.gen.engine
+    def get(self):
+        try:
+            self.set_header('Content-Type', 'application/excel')
+            self.set_header('Content-Disposition', 'attachment; filename="info_about_gallery.xls"')
+            xls = self.xls()
+            chunk = 512000
+            data = xls.read(chunk)
+            while data:
+                self.write(data)
+                yield tornado.gen.Task(self.flush)
+                data = xls.read(chunk)
+            self.flush()
+        except Exception:
+            traceback.print_exc()
+        finally:
+            self.finish()
 
-
-# 	def xls(self):
-# 		try:
-# 			cursor = CONNECTION_WITH_DB.cursor()
-# 			book = xlwt.Workbook()
-# 			table = book.add_sheet('Photo details')
-# 			table.write(0, 0, 'Photo')
-# 			table.write(0, 1, 'Quantity comments')
-# 			table.write(0, 2, 'Quantity likes')
-# 			cursor.execute('select distinct Picture from Descriptions')
-# 			pictures = list(map(lambda item: item[0], cursor.fetchall()))
-# 			for row, picture in enumerate(pictures, 1):
-# 				table.write(row, 0, picture)
-# 				cursor.execute('select count(Comment) from Comments where Picture=?', (picture,))
-# 				comments = cursor.fetchone()[0]
-# 				cursor.execute('select count(Ip) from Likes where Picture=?', (picture,))
-# 				likes = cursor.fetchone()[0]
-# 				table.write(row, 1, comments)
-# 				table.write(row, 2, likes)
-# 			buff = io.BytesIO()
-# 			book.save(buff)
-# 			buff.seek(0)
-# 			return buff
-# 		except Exception:
-# 			traceback.print_exc()
-# 		finally:
-# 			cursor.close()
+    def xls(self):
+        try:
+            cursor = CONNECTION_WITH_DB.cursor()
+            book = xlwt.Workbook()
+            table = book.add_sheet('Photo details')
+            table.write(0, 0, 'Имя фотографии')
+            table.write(0, 1, 'Количество комментариев')
+            table.write(0, 2, 'Количество лайков')
+            cursor.execute('select distinct Picture from Pictures')
+            pictures = list(map(lambda item: item[0], cursor.fetchall()))
+            for row, picture in enumerate(pictures, 1):
+                table.write(row, 0, picture)
+                cursor.execute('select count(Comment) from Comments where Picture=?', (picture,))
+                comments = cursor.fetchone()[0]
+                cursor.execute('select count(Ip) from Likes where Picture=?', (picture,))
+                likes = cursor.fetchone()[0]
+                table.write(row, 1, comments)
+                table.write(row, 2, likes)
+            buff = io.BytesIO()
+            book.save(buff)
+            buff.seek(0)
+            return buff
+        except Exception:
+            traceback.print_exc()
+        finally:
+            cursor.close()
 
 
 def quantity_visitors():
@@ -239,8 +226,8 @@ HANDLERS = [(r'/', HandlerMain),
             (r'/getComments', HandlerСommentsRequest),
             (r'/addComment', HandlerAddComment),
             (r'/getLikes', HandlerLikesRequest),
-            (r'/addLike', HandlerAddLike)
-            # ,(r'/downloadXLS', HandlerDownloadXLS)
+            (r'/addLike', HandlerAddLike),
+            (r'/downloadXLS', HandlerDownloadXLS)
             ]
 
 

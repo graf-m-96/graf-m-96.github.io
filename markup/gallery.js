@@ -100,6 +100,7 @@ function changeVisibilityBigPicture(state, element, keepState) {
 
 
 function loadImage(element, keepState) {
+    ID_CURRENT_PHOTO = element.id;
     var fullPathToPicture = element.src;
 	var namePicture = fullPathToPicture.substring(fullPathToPicture.lastIndexOf('/') + 1, fullPathToPicture.length);
     getLikes(namePicture);
@@ -107,7 +108,6 @@ function loadImage(element, keepState) {
     document.getElementById('big_picture').src = element.src;
     document.getElementById('image_with_cross').style.display = 'block';
     document.getElementById('dark_background').style.display = 'block';
-    ID_CURRENT_PHOTO = element.id;
     if (!keepState) {
         history.pushState(null, '', '?' + ID_CURRENT_PHOTO);
     }
@@ -143,32 +143,27 @@ function loadNextImages(element) {
 
 function checkHistory() {
     var indexQuestion = window.location.href.lastIndexOf('?');
+    closeAllWindows();
     if (indexQuestion !== -1) {
         var location = window.location.href.substring(indexQuestion + 1,
                                                       window.location.href.length);
         switch (location) {
             case 'help':
-                closeAllWindows();
                 changeVisibilityHelp('block');
                 break;
             case '':
-                closeAllWindows();
                 break;
             default:
-                closeAllWindows();
                 if (document.getElementById(location) !== null) {
                     loadImage(document.getElementById(location), true);
                 }
                 break;
         }
-    } else {
-        closeAllWindows();
     }
 }
 
 
 function watchForHistory() {
-    closeAllWindows();
     checkHistory();
     window.addEventListener('popstate', function(e) {
         checkHistory();
@@ -230,7 +225,7 @@ function sendComment(event)
 	var namePicture = fullPathToPicture.substring(fullPathToPicture.lastIndexOf('/') + 1, fullPathToPicture.length);
 	var formData = new FormData();
 	formData.append('comment', document.getElementById('commentInput').value);
-	formData.append(namePicture);
+	formData.append('picture', namePicture);
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.open("POST", "http://localhost:8080/addComment", true);
 	xmlhttp.onreadystatechange = function() {

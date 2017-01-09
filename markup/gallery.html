@@ -28,18 +28,15 @@
                 <img id="imgLike" src="pictures/like.png" onclick="addLike(event)" alt="">
                 <div id="countLike"></div>
             </div>
-
-
-            <div id="conTextPictureBigDisplay"></div>
-            <div id="conForm">
+            <div id="background_for_comments">
+                <div id="conTextPictureBigDisplay"></div>
                 <form action="action" method="post">
                     <textarea id="commentInput" name="comment" placeholder="Комментарий будет сокращен до 500 символов"
                           onkeyup="textAreaKeyUp(event)">
                     </textarea>
-                    <input type="submit" id="buttonCommentPlacement" value="Отправить" onclick="sendComment(event)">
                 </form>
+                <input type="submit" id="buttonCommentPlacement" value="Отправить" onclick="sendComment(event)">
             </div>
-
         </div>
         <div id="help_window" style="overflow: auto">
             <img id="close_help" src="pictures/close.png" alt="Крестик"
@@ -78,7 +75,7 @@
         </div>
         <div class="wrapper">
             <header>
-                <a href="http://localhost:8080/">Главная</a>
+                <a href="index.html">Главная</a>
                 <a class="active" href="gallery.html">Галерея</a>
                 <a href="links.html">Контакты</a>
             </header>
@@ -348,6 +345,13 @@
                         </div>
                     </li>
                 </ul>
+                <div>
+                    <h2 style="text-align: center">Информация о галерее</h2>
+                    <p style="font-size: 24px">
+                        Вы можете скачать информацию о всех картинках (лайки, количество комментариев) в ввиде
+                        <a href="http://localhost:8080/downloadXLS">XLS-файла</a>
+                    </p>
+                </div>
             </main>
             <div class="footer_on_gallery">
                 <div>© Мамонов А.А. 2016 год</div>
